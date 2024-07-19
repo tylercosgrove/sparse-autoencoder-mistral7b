@@ -4,4 +4,4 @@ This a sparse autoencoder I trained on the residual activations of Mistral 7b. T
 
 I was inspired to do this after seeing [Golden Gate Claude](https://www.anthropic.com/news/golden-gate-claude).
 
-HuggingFace link for the model weights: COMING SOON
+HuggingFace link for the model weights: [https://huggingface.co/tylercosgrove/mistral-7b-sparse-autoencoder-layer16](https://huggingface.co/tylercosgrove/mistral-7b-sparse-autoencoder-layer16)

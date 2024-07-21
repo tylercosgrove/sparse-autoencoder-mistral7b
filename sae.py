@@ -99,18 +99,14 @@ class SparseAutoencoder(nn.Module):
         return recons, auxk, num_dead
 
     @torch.no_grad()
-    def forward_val(self, x):
+    def forward_val(self, x, features=None):
         x, mu, std = self.LN(x)
         x = x - self.b_pre
         pre_acts = x @ self.w_enc + self.b_enc
         latents = self.topK_activation(pre_acts, self.k)
 
-        """
-        Artificially activate a feature:
-
-        latents[:, feature_index] = high value (values around 60 seem to work well)
-        
-        """
+        for feat in features:
+            latents[:, feat["feat_index"]] = feat["val"]
 
         recons = latents @ self.w_dec + self.b_pre
         recons = recons * std + mu

@@ -18,7 +18,8 @@ def generate(
     max_tokens: int,
     temperature: float,
     eos_id: Optional[int] = None,
-    sae=None
+    sae=None,
+    features=None
 ) -> Tuple[List[List[int]], List[List[float]]]:
     model = model.eval()
     B, V = len(encoded_prompts), model.args.vocab_size
@@ -63,6 +64,7 @@ def generate(
             cache=None,  # No cache
             using_sae=is_generating,
             sae=sae if is_generating else None,
+            features=features,
         )
 
         logits = torch.log_softmax(prelogits, dim=-1)

@@ -22,8 +22,8 @@ optimizer = torch.optim.AdamW(
     model.parameters(), lr=lr, eps=6.25e-10, betas=(0.9, 0.999)
 )
 
-mistral_models_path = "PATH TO MISTRAL7b WEIGHTS"
-actsLoader = ActivationsLoader(128, 512, mistral_models_path, target_layer=16)
+MISTRAL_MODEL_PATH = "PATH TO MISTRAL7b WEIGHTS"
+actsLoader = ActivationsLoader(128, 512, MISTRAL_MODEL_PATH, target_layer=16)
 
 
 def loss_fn(x, recons, auxk):
@@ -64,7 +64,7 @@ while True:
 
         if count % 1000 == 0:
             # Periodically save model
-            torch.save(model.state_dict(), "testing_auxk2.pth")
+            torch.save(model.state_dict(), "sae.pth")
 
         if count % 50 == 0:
             # Logging...

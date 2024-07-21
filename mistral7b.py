@@ -329,10 +329,16 @@ class Transformer(nn.Module):
         cache: Optional[BufferCache] = None,
         using_sae: bool = False,
         sae=None,
+        features=None,
     ) -> torch.Tensor:
         if using_sae:
             h = self.forward_partial_with_sae(
-                input_ids, seqlens, cache=cache, target_layer=16, sae=sae
+                input_ids,
+                seqlens,
+                cache=cache,
+                target_layer=16,
+                sae=sae,
+                features=features,
             )
         else:
             h = self.forward_partial(input_ids, seqlens, cache=cache)
@@ -440,6 +446,7 @@ class Transformer(nn.Module):
         cache: Optional[BufferCache] = None,
         target_layer: Optional[int] = None,
         sae=None,
+        features=None,
     ) -> torch.Tensor:
         assert (
             len(seqlens) <= self.args.max_batch_size
@@ -479,7 +486,7 @@ class Transformer(nn.Module):
 
                 # REPLACE ACTIVATIONS WITH SAE RECONSTRUCTION
                 with torch.no_grad():
-                    reconstruct = sae.forward_val(h)
+                    reconstruct = sae.forward_val(h, features=features)
                     reconstruct = reconstruct.to(torch.bfloat16)
                     h = reconstruct
 

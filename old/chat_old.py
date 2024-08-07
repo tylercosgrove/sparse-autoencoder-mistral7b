@@ -1,3 +1,5 @@
+# FILES IN 'old' ARE DEPRECATED EXAMPLES OF INFERENCE, USE 'demo.py' AS NEW EXAMPLE
+
 import torch
 from sae import SparseAutoencoder
 from mistral7b import Transformer
